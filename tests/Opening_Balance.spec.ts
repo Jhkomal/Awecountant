@@ -1,0 +1,31 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://demo.awecountant.com/');
+  await page.getByRole('textbox', { name: 'Email', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Email', exact: true }).fill('pramod@awecode.com');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('admin');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.locator('div').filter({ hasText: 'Dashboard Itemskeyboard_arrow_down All Items Units Categories' }).nth(3)).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Expand "Accounts"' })).toBeVisible();
+  await page.getByRole('button', { name: 'Expand "Accounts"' }).click();
+  await expect(page.getByRole('listitem').filter({ hasText: 'Opening Balances' })).toBeVisible();
+  await page.getByRole('listitem').filter({ hasText: 'Opening Balances' }).click();
+  await expect(page.getByText('New Opening BalanceaddsearchNameOpening Drarrow_upwardOpening')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'New Opening Balance' })).toBeVisible();
+  await page.getByRole('link', { name: 'New Opening Balance' }).click();
+  await expect(page.getByText('menuHome/Account Opening Balances/CreateFY 81-82 AD Dashboard')).toBeVisible();
+  await expect(page.getByText('arrow_drop_down')).toBeVisible();
+  await page.getByText('arrow_drop_down').click();
+  await page.getByRole('option', { name: 'Asta (Payable)' }).locator('div').nth(2).click();
+  await page.getByRole('spinbutton', { name: 'Opening Dr' }).click();
+  await page.getByRole('spinbutton', { name: 'Opening Dr' }).fill('0');
+  await page.getByRole('spinbutton', { name: 'Opening Cr' }).click();
+  await page.getByRole('spinbutton', { name: 'Opening Cr' }).fill('1115');
+  await expect(page.getByRole('button', { name: 'Create' })).toBeVisible();
+  await page.getByRole('button', { name: 'Create' }).click();
+  await expect(page.locator('div').filter({ hasText: /^search$/ }).first()).toBeVisible();
+  await page.getByText('New Opening BalanceaddsearchNameOpening Drarrow_upwardOpening').click();
+  await expect(page.getByText('menuHome/Account Opening BalancesFY 81-82 AD Dashboard Itemskeyboard_arrow_down')).toBeVisible();
+});

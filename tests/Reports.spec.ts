@@ -1,0 +1,41 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://demo.awecountant.com/');
+  await page.getByRole('textbox', { name: 'Email', exact: true }).fill('pramod@awecode.com');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('admin');
+  await page.getByRole('textbox', { name: 'Password' }).press('Enter');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('button', { name: 'Expand "Reports"' }).click();
+  await page.getByRole('listitem').filter({ hasText: 'Collection Report' }).click();
+  await expect(page.getByText('menuHome/Collection ReportFY 81-82 AD Dashboard Itemskeyboard_arrow_down All')).toBeVisible();
+  await page.getByRole('textbox', { name: 'Start Date' }).click();
+  await page.getByText('Last 7 Days').click();
+  await expect(page.getByText('Start DateEnd Dateclosefetch')).toBeVisible();
+  await page.getByRole('button', { name: 'fetch' }).click();
+  await page.getByRole('button', { name: 'fetch' }).click();
+  await page.getByText('menuHome/Collection ReportFY 81-82 AD Dashboard Itemskeyboard_arrow_down All').click();
+  await expect(page.getByText('menuHome/Collection ReportFY 81-82 AD Dashboard Itemskeyboard_arrow_down All')).toBeVisible();
+
+  await page.getByRole('listitem').filter({ hasText: 'Trial Balance' }).first().click();
+  await page.getByText('menuHome/Trial BalanceFY 81-82 AD Dashboard Itemskeyboard_arrow_down All Items').click();
+  await expect(page.getByRole('textbox', { name: 'Start Date' })).toBeVisible();
+  await page.getByRole('textbox', { name: 'Start Date' }).click();
+  await page.getByRole('button', { name: 'fetch' }).click();
+  await expect(page.getByText('Start DateEnd DateclosefetchsettingsExport Xlsdownload')).toBeVisible();
+  await expect(page.getByRole('cell').filter({ hasText: /^$/ })).toBeVisible();
+  await expect(page.getByText('Start DateEnd DateclosefetchsettingsExport XlsdownloadName Opening Transactions')).toBeVisible();
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export Xls' }).click();
+  const download = await downloadPromise;
+  const download1Promise = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Export Xls' }).click();
+  const download1 = await download1Promise;
+  await page.getByText('Start DateEnd DateclosefetchsettingsExport Xlsdownload').click();
+  await page.getByRole('button', { name: 'Config' }).click();
+  await expect(page.getByRole('button', { name: 'Config' })).toBeVisible();
+  await page.getByRole('button', { name: 'Config' }).click();
+  await page.getByRole('checkbox', { name: 'Show Opening Closing Dr/Cr?' }).click();
+  await page.getByRole('cell').filter({ hasText: /^$/ }).click();
+});

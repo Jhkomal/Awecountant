@@ -1,0 +1,34 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  // Recording...await page.goto('https://demo.awecountant.com/');
+  await page.getByRole('textbox', { name: 'Email', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Email', exact: true }).fill('pramod@awecode.com');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('admin');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('button', { name: 'Expand "Items"' }).click();
+  await page.getByRole('listitem').filter({ hasText: 'Categories' }).click();
+  await page.getByRole('link', { name: 'New Category' }).click();
+  await page.getByRole('textbox', { name: 'Name *' }).press('CapsLock');
+  await page.getByRole('textbox', { name: 'Name *' }).fill('T');
+  await page.getByRole('textbox', { name: 'Name *' }).press('CapsLock');
+  await page.getByRole('textbox', { name: 'Name *' }).fill('Two Wheeler');
+  await page.getByRole('textbox', { name: 'Code', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Code', exact: true }).fill('560');
+  await page.getByRole('combobox', { name: 'Unit' }).click();
+  await page.locator('#f_45097eb1-f19f-48c2-b449-6392510e12f2_2 > .q-item__section').click();
+  await page.getByRole('combobox', { name: 'Tax Scheme' }).click();
+  await page.getByRole('option', { name: 'tax', exact: true }).nth(1).click();
+  await page.getByRole('textbox', { name: 'H.S. code' }).click();
+  await page.getByRole('textbox', { name: 'H.S. code' }).fill('786655');
+  await expect(page.locator('form')).toBeVisible();
+  await expect(page.getByRole('checkbox', { name: 'Can be sold?' })).toBeVisible();
+  await expect(page.locator('div').filter({ hasText: /^taxTax Schemeclosearrow_drop_down\+$/ }).first()).toBeVisible();
+  await page.getByRole('button', { name: 'Create' }).click();
+  await page.getByRole('textbox', { name: 'Code', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Code', exact: true }).fill('598');
+  await page.getByRole('button', { name: 'Create' }).click();
+  await expect(page.getByRole('link', { name: 'Footwear' })).toBeVisible();
+  await expect(page.locator('tbody')).toContainText('Footwear');
+});

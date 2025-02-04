@@ -1,0 +1,44 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://demo.awecountant.com/');
+  await page.getByRole('textbox', { name: 'Email', exact: true }).fill('pramod@awecode.com');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('admin');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page.getByRole('button', { name: 'Expand "CRM"' })).toBeVisible();
+  await page.getByRole('button', { name: 'Expand "CRM"' }).click();
+  await page.getByRole('listitem').filter({ hasText: 'Parties' }).click();
+  await expect(page.getByRole('link', { name: 'New party' })).toBeVisible();
+  await page.getByRole('link', { name: 'New party' }).click();
+  await page.getByRole('textbox', { name: 'Name *' }).fill('tom');
+  await page.getByRole('textbox', { name: 'Address' }).click();
+  await page.getByRole('textbox', { name: 'Address' }).fill('ithari');
+  await page.getByRole('textbox', { name: 'Contact No' }).click();
+  await page.getByRole('textbox', { name: 'Contact No' }).fill('9874678999');
+  await page.locator('div').filter({ hasText: /^Contact NoEmail$/ }).getByLabel('Email').click();
+  await page.locator('div').filter({ hasText: /^Contact NoEmail$/ }).getByLabel('Email').fill('tom@gmail.com');
+  await page.getByRole('spinbutton', { name: 'Tax Registration Number' }).click();
+  await page.getByRole('spinbutton', { name: 'Tax Registration Number' }).fill('78389898');
+  await page.getByRole('textbox', { name: 'Name', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Name', exact: true }).fill('com');
+  await page.getByRole('textbox', { name: 'Positions' }).click();
+  await page.getByRole('textbox', { name: 'Positions' }).fill('manager');
+  await page.getByRole('spinbutton', { name: 'Phone Number' }).click();
+  await page.getByRole('spinbutton', { name: 'Phone Number' }).fill('098776767777');
+  await page.locator('div').filter({ hasText: /^Phone NumberEmail$/ }).getByLabel('Email').click();
+  await page.locator('div').filter({ hasText: /^Phone NumberEmail$/ }).getByLabel('Email').fill('comm@gmail.com');
+  await expect(page.locator('form')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Create' })).toBeVisible();
+  await page.getByRole('button', { name: 'Create' }).click();
+  await expect(page.getByRole('row', { name: 'tom ithari 9874678999 tom@' }).getByRole('link').nth(1)).toBeVisible();
+  await expect(page.getByRole('row', { name: 'tom ithari 9874678999 tom@' }).getByRole('link').nth(2)).toBeVisible();
+  await page.getByRole('row', { name: 'tom ithari 9874678999 tom@' }).getByRole('link').nth(2).click();
+  await page.getByRole('textbox', { name: 'Start Date' }).click();
+  await page.getByText('Last 30 Days').click();
+  await page.getByRole('button', { name: 'filter' }).click();
+  await page.getByRole('button', { name: 'filter' }).click();
+  await page.getByRole('button').filter({ hasText: 'close' }).click();
+  await page.getByRole('textbox', { name: 'Start Date' }).click();
+  
+});
