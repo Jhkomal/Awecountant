@@ -14,12 +14,11 @@ test('User should be able to create a new category', async ({ page }) => {
     await categoryPage.navigateToAddCategory();
 
     // Fill in category details
-    await categoryPage.fillCategoryDetails('Fused', 'TC153', '1983', 'GST');
+    await categoryPage.fillCategoryDetails('Dominan', 'TC987', '1234', 'GST');
 
     // Submit the form
     await categoryPage.clickCreateButton();
 
     // Validate successful category creation (adjust selector based on actual page behavior)
-    await page.getByText('check_circleSaved').click();
-
+    await expect(page.locator('div.success-message')).toBeVisible();
 });
