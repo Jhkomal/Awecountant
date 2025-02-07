@@ -14,7 +14,7 @@ test('User should be able to create a new category', async ({ page }) => {
     await categoryPage.navigateToAddCategory();
 
     // Fill in category details
-    await categoryPage.fillCategoryDetails('Earphone', 'TC987', '8766', 'GST');
+    await categoryPage.fillCategoryDetails('Music System', 'TC987', '8766', 'GST');
 
     // Submit the form
     await categoryPage.clickCreateButton();
